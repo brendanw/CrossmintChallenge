@@ -53,11 +53,4 @@ fun getPolyanetsToCreateAsXShape(
    return coordinates.distinct()
 }
 
-@Serializable
-data class CreatePolyanetRequest(
-   val candidateId: String,
-   val row: Int,
-   val column: Int
-)
-
 data class Coordinate(val x: Int, val y: Int)
