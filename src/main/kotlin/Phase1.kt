@@ -1,50 +1,25 @@
 package com.basebeta
 
-import io.ktor.client.HttpClient
-import io.ktor.client.plugins.HttpRedirect
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
-import io.ktor.serialization.kotlinx.json.json
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 
 
 fun main() {
-   // initialize HttpClient
-   val client = HttpClient {
-      install(ContentNegotiation) {
-         json(
-            Json {
-               isLenient = true
-               prettyPrint = true
-               ignoreUnknownKeys = true
-            }
-         )
-      }
-
-      install(HttpRedirect) {
-         checkHttpMethod = false // Allow redirects for POST requests
-         allowHttpsDowngrade = false
-      }
-
-      followRedirects = true
-   }
-
    val polyanetsToCreate: List<Coordinate> = getPolyanetsToCreateAsXShape()
 
    runBlocking {
       polyanetsToCreate.forEach { coordinate ->
          println("POST: $coordinate")
-         val response = client.post(urlString = "${Deps.baseUrl}/api/polyanets") {
+         val response = Deps.client.post(urlString = "${Deps.baseUrl}/api/polyanets") {
             contentType(ContentType.Application.Json)
             setBody(
-               CreateSpaceItemRequest(
+               CreatePolyanetRequest(
                   candidateId = Deps.candidateId,
                   row = coordinate.y,
                   column = coordinate.x
@@ -79,7 +54,7 @@ fun getPolyanetsToCreateAsXShape(
 }
 
 @Serializable
-data class CreateSpaceItemRequest(
+data class CreatePolyanetRequest(
    val candidateId: String,
    val row: Int,
    val column: Int
