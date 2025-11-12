@@ -21,6 +21,11 @@ dependencies {
    implementation("io.ktor:ktor-client-okhttp:${ktorVersion}")
 
    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+
+   testImplementation(kotlin("test"))
+   testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+   testImplementation("io.mockk:mockk:1.13.4")
+   testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
 }
 
 tasks.test {
