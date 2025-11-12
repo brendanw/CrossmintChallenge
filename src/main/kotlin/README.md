@@ -5,4 +5,4 @@
 - If I could control the backend endpoint, I'd suggest we send batches of coordinates to the server rather than individual calls
 - This is code interview code, so I don't want to go too crazy with optimizations.
 - Phase2 code doesn't check for an error in calling the goal endpoint. That felt like overkill given the context of an assessment.
-- 
+- I could further experiment with backoff policy and making concurrent calls to optimize performance, but it felt like overkill in the context of this code assessment.
